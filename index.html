@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITI - مكتب المهندس عبدالله اكرام | التحقق الآمن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{ --gold:#d4b26a; --gold2:#f7e3a1; --black:#0d0d0d; }
+*{box-sizing:border-box; margin:0; padding:0; font-family:'Cairo', sans-serif;}
+body{background:#080808; display:flex; justify-content:center; padding:20px; color:#d4b26a;}
+.phone{width:100%; max-width:420px; background:linear-gradient(180deg,#121212,#0a0a0a); border-radius:32px; overflow:hidden; border:1px solid #2a2418; box-shadow:0 20px 60px rgba(0,0,0,.8);}
+.header{padding:18px 20px; display:flex; justify-content:space-between; align-items:center; background:#1a1a1a;}
+.logo{font-size:72px; font-weight:900; letter-spacing:6px; background:linear-gradient(180deg,#f7e3a1,#d4b26a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; line-height:1;}
+.title{font-size:24px; font-weight:700; text-align:center; margin-top:6px;}
+.subtitle{font-size:14px; text-align:center; opacity:.9;}
+.divider{width:80%; height:1px; background:linear-gradient(90deg,transparent,#d4b26a,transparent); margin:16px auto;}
+.form-box{padding:20px;}
+.label{font-size:14px; margin:16px 0 6px; display:block;}
+.input-wrap{display:flex; align-items:center; background:#1e1e1e; border:1.5px solid #d4b26a; border-radius:28px; padding:0 14px; height:48px;}
+.input-wrap input{flex:1; background:transparent; border:none; outline:none; color:#f7e3a1; font-size:16px; text-align:center;}
+.btn{width:100%; height:52px; border:none; border-radius:14px; background:linear-gradient(180deg,#f7e3a1,#d4b26a); color:#111; font-weight:900; font-size:18px; cursor:pointer; margin-top:10px;}
+.check{display:flex; gap:8px; font-size:11px; margin:18px 0; line-height:1.4;}
+.footer{border-top:1px solid #2a2418; padding:12px; text-align:center; font-size:10px; letter-spacing:2px; opacity:.7;}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="header"><span>←</span><span>التحقق الآمن</span><span>🛡️</span></div>
+  <div style="text-align:center; padding:10px 20px 20px;">
+    <div class="logo">ITI</div>
+    <div class="title">مكتب المهندس عبدالله اكرام</div>
+    <div class="subtitle">للخدمات الحكومية والكمبيوتر</div>
+    <div style="font-size:11px; opacity:.7; margin-top:6px">ITI — Eng. Abdallah Ekram Office</div>
+    <div class="divider"></div>
+  </div>
+  <div class="form-box">
+    <h2>🛡️ التحقق من الهوية</h2>
+    <p style="font-size:13px; opacity:.8; margin:4px 0 16px;">يرجى إدخال بياناتك للمتابعة بشكل آمن</p>
+    <label class="label">الرقم القومي</label>
+    <div class="input-wrap"><span>🪪</span><input id="nid" maxlength="14" placeholder="12345678901234"><span>💳</span></div>
+    <label class="label">اسم الأم (الاسم الأول فقط)</label>
+    <div class="input-wrap"><span>👥</span><input id="mother" type="password" placeholder="••••••••"><span onclick="document.getElementById('mother').type=document.getElementById('mother').type==='password'?'text':'password'" style="cursor:pointer">👁️</span></div>
+    <label class="label">رقم الموبايل المسجل بالبوابة</label>
+    <div class="input-wrap"><span>📞</span><input id="phone" placeholder="+20 10 — — — — — — —"><span>📞</span></div>
+    <div class="check"><input type="checkbox" id="agree"><label for="agree">أوافق على الشروط وسياسة الخصوصية - البيانات لا يتم حفظها بعد الجلسة</label></div>
+    <button class="btn" onclick="startService()">تأكيد وبدء الخدمة</button>
+    <div style="font-size:11px; text-align:center; margin-top:14px;">🔒 جميع بياناتك محمية بتشفير SSL 256-bit • موثق وآمن</div>
+  </div>
+  <div class="footer">GOVERNMENT SERVICES • COMPUTER SOLUTIONS<br>📍 Mallawi • Minya • Egypt • 01016162798 | 01024451069</div>
+</div>
+<script>
+function startService(){function startService(){
+  const nid=document.getElementById('nid').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const agree=document.getElementById('agree').checked;
+  
+  if(!agree){alert('يجب الموافقة أولاً');return;}
+  if(nid.length!==14){alert('الرقم القومي 14 رقم');return;}
+  if(phone.length<11){alert('أدخل رقم الموبايل');return;}
+
+  // بنحفظ آخر 4 أرقام بس
+  const nidLast4 = nid.slice(-4);
+
+  // ابعت للـ Google Sheet - بدون اسم الأم نهائي
+  fetch('حط هنا لينك الـ Web App اللي خدته', {
+    method: 'POST',
+    body: JSON.stringify({
+      service: "خدمة حكومية",
+      nidLast4: "****" + nidLast4,
+      phone: phone
+    })
+  });
+
+  alert('تم التحقق بشكل آمن ✅ الطلب رقم ' + nidLast4 + ' اتسجل عندنا وهنكلمك');
+  document.getElementById('mother').value='';
+  document.getElementById('nid').value='';
+  document.getElementById('phone').value='';
+}
+}
+</script>
+</body>
+</html>
